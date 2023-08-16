@@ -26,3 +26,12 @@ const authSlice = createSlice({
     },
   },
 });
+
+//!Slicer içinden iki şey export edilir:
+//1-authSlice.actions (named export olarak) ve
+//2-authSlice.reducer (default export olarak)
+//? olusan action fonksiyonları authSlice.actions'dan destructure edilerek export edilir.
+export const { setUser, clearUser } = authSlice.actions;
+
+//? yazılan slice'ın reducer'ı authSlice.reducer seklinde export edilmelidir.
+export default authSlice.reducer;
