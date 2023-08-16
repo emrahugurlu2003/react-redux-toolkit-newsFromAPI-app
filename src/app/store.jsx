@@ -10,4 +10,9 @@ export const store = configureStore({
     auth: authReducer,
     api: newsReducer,
   },
+  devTools: process.env.NODE_ENV !== "production",
+  //! eger geliştirme aşaması production ise o zaman
+  //yukarıdaki ifade false döndürür ve dolayısıyla
+  //devTool kullanıma kapalı olur.
+  //daimi olarak kapalı yapmak için-> devTools:false,
 });
