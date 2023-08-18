@@ -9,10 +9,13 @@ import Container from "@mui/material/Container";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "../features/authSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,10 +26,12 @@ export default function Login() {
     //redux-toolikt bunları tek bir nesne olarak birleştirmiştir.
     //dolayısıyla: setUser'a verilen payload,
     //store'daki state'in user nesnesine yazılır.
-    useDispatch(setUser({ email, password }));
+    dispatch(setUser({ email, password }));
     //!dispatch işlemi sonrası kutucuklar ve lokal state temizlenir
+    console.log("handle");
     setEmail("");
     setPassword("");
+    navigate("/");
   };
 
   return (
