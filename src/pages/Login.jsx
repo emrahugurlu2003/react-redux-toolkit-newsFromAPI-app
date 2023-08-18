@@ -7,6 +7,8 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "../features/authSlice";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -21,7 +23,7 @@ export default function Login() {
     //redux-toolikt bunları tek bir nesne olarak birleştirmiştir.
     //dolayısıyla: setUser'a verilen payload,
     //store'daki state'in user nesnesine yazılır.
-    dispatch(setUser({ email, password }));
+    useDispatch(setUser({ email, password }));
     //!dispatch işlemi sonrası kutucuklar ve lokal state temizlenir
     setEmail("");
     setPassword("");
