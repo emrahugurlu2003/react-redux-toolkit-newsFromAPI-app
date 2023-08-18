@@ -14,6 +14,15 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    //! kullanıcı bilgilerini nesne yapıp state'i güncelleme isteği
+    //yani, gelen action içindeki payload verisini al,
+    //store’da tutulan state’in user nesnesine yaz
+    //setUser hem bir action creator, hem de bir reducer'dır.
+    //redux-toolikt bunları tek bir nesne olarak birleştirmiştir.
+    //dolayısıyla: setUser'a verilen payload,
+    //store'daki state'in user nesnesine yazılır.
+    dispatch(setUser({ email, password }));
+    //!dispatch işlemi sonrası kutucuklar ve lokal state temizlenir
     setEmail("");
     setPassword("");
   };
@@ -76,8 +85,8 @@ export default function Login() {
 
       <Typography variant="body2" color="text.secondary" align="center">
         {"Copyright © "}
-        <Link color="inherit" href="https://www.clarusway.com/">
-          Clarusway
+        <Link color="inherit" href="https://github.com/emrahugurlu2003">
+          eugurlu
         </Link>{" "}
         {new Date().getFullYear()}
         {"."}
