@@ -1,4 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const PrivateRouter = () => {
   //!const user = true; dummy olursa bu şekilde
