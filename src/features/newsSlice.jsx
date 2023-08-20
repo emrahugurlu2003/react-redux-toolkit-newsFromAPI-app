@@ -1,5 +1,6 @@
 //!createSlice metodu named import yapılır
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 //!Slice oluştururken kullanacağımız initialState tanımlanır
 //içinde news, loading ve error isimli 3 state nesnesi tutulacak.
@@ -10,6 +11,19 @@ const initialState = {
   loading: false,
   error: false,
 };
+export const getNews = createAsyncThunk(
+  "getNewsFunction", //Action type name olarak string tipinde bir prefixtir
+  async () => {
+    const API_KEY = process.env.VITE_APP_API_KEY;
+    const COUNTRY = "us";
+    //!READMe.md dosyasında belirtildiği şekilde API isteği atılır
+    const url = `https://newsapi.org/v2/top-headlines?country=${COUNTRY}&apiKey=${API_KEY}`;
+    //!Gelen veri içinden destructuring ile data çekilir:
+    const { data } = await axios(url);
+    console.log(data);
+    //return;
+  }
+);
 
 //!adı "news" olan, başlangıç değeri initialState olan bir slice yazılır
 //slice içinde reducers: keyinde, {} içinde reducer nesnesi tanımlanır
@@ -24,6 +38,27 @@ const newsSlice = createSlice({
     clearNews: (state) => {
       state.news = [];
     },
+  },
+  //! createAyncThunk metedo bir middleware olarak API gibi dış kaynaklı
+  //isteklerin redux ortaminda oluşturulmasını sağlar. Ancak API'deki
+  //durumlara gore state'lerin güncellenmesini sağlamaz. Bunun için
+  //slice icersindeki extraReducer kısmı kullanilir.
+
+  //? API isteklerinde 3 farkli alt durum meydana gelir. Bunlar baslama (pending), basarili bitme (fullfilled) ve basariz bitme (rejected) dir.
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(getNews.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getNews.fulfilled, (state, action) => {
+        state.news = action.payload;
+        state.loading = false;
+      })
+      .addCase(getNews.rejected, (state) => {
+        state.error = true;
+        state.loading = false;
+      });
   },
 });
 
