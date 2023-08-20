@@ -5,8 +5,22 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { CardMedia } from "@mui/material";
+import { useEffect } from "react";
+import { getNews } from "../features/newsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const News = () => {
+  const dispatch = useDispatch();
+  const { news, error, loading } = useSelector((state) => state.api);
+
+  useEffect(() => {
+    dispatch(getNews());
+
+    //? news componenti DOM tree'den kaldirilinca state'deki bilgileri temizle
+    return () => {
+      dispatch(clearNews());
+    };
+  }, []);
   return (
     <>
       <h1>NEWS</h1>
