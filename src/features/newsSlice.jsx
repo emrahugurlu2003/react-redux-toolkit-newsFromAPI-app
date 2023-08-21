@@ -1,4 +1,5 @@
 //!createSlice metodu named import yapılır
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -14,14 +15,16 @@ const initialState = {
 export const getNews = createAsyncThunk(
   "getNewsFunction", //Action type name olarak string tipinde bir prefixtir
   async () => {
-    const API_KEY = process.env.VITE_APP_API_KEY;
+    console.log("Inside getNews async thunk");
+    //https://newsapi.org sitesine register/login olunca, API KEY alınır.
+    const API_KEY = import.meta.env.VITE_APP_API_KEY;
     const COUNTRY = "us";
     //!READMe.md dosyasında belirtildiği şekilde API isteği atılır
     const url = `https://newsapi.org/v2/top-headlines?country=${COUNTRY}&apiKey=${API_KEY}`;
     //!Gelen veri içinden destructuring ile data çekilir:
     const { data } = await axios(url);
-    console.log(data);
-    //return;
+    console.log("getNewsData:", data);
+    return data.articles;
   }
 );
 
