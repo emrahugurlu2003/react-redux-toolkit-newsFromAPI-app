@@ -28,7 +28,6 @@ export default function Login() {
     //store'daki state'in user nesnesine yazılır.
     dispatch(setUser({ email, password }));
     //!dispatch işlemi sonrası kutucuklar ve lokal state temizlenir
-    console.log("handle");
     setEmail("");
     setPassword("");
     navigate("/");

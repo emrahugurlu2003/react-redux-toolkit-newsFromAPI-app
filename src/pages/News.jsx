@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { CardMedia } from "@mui/material";
 import { useEffect } from "react";
-import { getNews } from "../features/newsSlice";
+import { clearNews, getNews } from "../features/newsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const News = () => {
@@ -14,6 +14,7 @@ const News = () => {
   const { news, error, loading } = useSelector((state) => state.api);
 
   useEffect(() => {
+    //!Login olur olmaz dispatch yayınlayıp API isteği yapılır
     dispatch(getNews());
 
     //? news componenti DOM tree'den kaldirilinca state'deki bilgileri temizle
@@ -31,7 +32,8 @@ const News = () => {
         justifyContent="space-evenly"
         flexWrap="wrap"
       >
-        {[1, 2, 3].map((item, index) => (
+        {/* API'den çekilen verilerin maplenmesi: */}
+        {news?.map((item, index) => (
           <Card sx={{ maxWidth: 345, m: 5, maxHeight: 600 }} key={index}>
             <CardMedia
               component="img"
