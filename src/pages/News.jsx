@@ -14,7 +14,7 @@ const News = () => {
   const { news, error, loading } = useSelector((state) => state.api);
 
   useEffect(() => {
-    //!Login olur olmaz dispatch yayınlayıp API isteği yapılır
+    //!Login olur olmaz dispatch yayınlayıp API isteği
     dispatch(getNews());
 
     //? news componenti DOM tree'den kaldirilinca state'deki bilgileri temizle
@@ -25,6 +25,12 @@ const News = () => {
   return (
     <>
       <h1>NEWS</h1>
+
+      {error && (
+        <Typography variant="h3" color={"error"}>
+          News can not be fetched
+        </Typography>
+      )}
       <Box
         xs={{ d: "flex" }}
         display="flex"

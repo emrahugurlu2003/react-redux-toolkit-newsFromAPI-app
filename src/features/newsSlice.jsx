@@ -15,7 +15,6 @@ const initialState = {
 export const getNews = createAsyncThunk(
   "getNewsFunction", //Action type name olarak string tipinde bir prefixtir
   async () => {
-    console.log("Inside getNews async thunk");
     //https://newsapi.org sitesine register/login olunca, API KEY alınır.
     const API_KEY = import.meta.env.VITE_APP_API_KEY;
     const COUNTRY = "us";
