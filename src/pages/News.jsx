@@ -8,6 +8,7 @@ import { CardMedia } from "@mui/material";
 import { useEffect } from "react";
 import { clearNews, getNews } from "../features/newsSlice";
 import { useDispatch, useSelector } from "react-redux";
+import loadingGif from "../assets/loading.gif";
 
 const News = () => {
   const dispatch = useDispatch();
@@ -25,13 +26,13 @@ const News = () => {
   return (
     <>
       <h1>NEWS</h1>
-
+      {/* loading esnasında image gösterilmesi */}
       {loading && (
         <Box display="flex" alignItems="center" justifyContent="center">
-          <img src={loadingGif} />
+          <img height="250" src={loadingGif} />
         </Box>
       )}
-
+      {/* UI tarafında error mesajı gösterilmesi*/}
       {error && (
         <Typography variant="h3" color={"error"}>
           News can not be fetched
