@@ -26,6 +26,12 @@ const News = () => {
     <>
       <h1>NEWS</h1>
 
+      {loading && (
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <img src={loadingGif} />
+        </Box>
+      )}
+
       {error && (
         <Typography variant="h3" color={"error"}>
           News can not be fetched
